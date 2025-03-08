@@ -541,6 +541,43 @@ vi fib(int n) {
 	}
 }
 
+vector<int> prefix_function(string& s) {
+	vector<int> p(s.size());
+	for (int i = 1; i < s.size(); i++) {
+		int j = p[i - 1];
+		while (j > 0 && s[j] != s[i])
+			j = p[j - i];
+		if (s[i] == s[j])
+			j++;
+		p[i] = j;
+	}
+	return p;
+}
+
+vector<int> z_function(string& s) {
+	vector<int> p(s.size());
+	p[0] = 0;
+	for (int i = 1; i < s.size(); i++) {
+		int j = 0;
+		int k = 0;
+		int teki = i;
+		if (s[i] == s[j]) {
+			while (s[i] == s[j]) {
+				k++;
+				j = k;
+				i++;
+			}
+			i = teki;
+			p[i] = k;
+			k = 0;
+			j = 0;
+		}
+		else
+			p[i] = 0;
+	}
+	return p;
+}
+
 int main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
@@ -953,7 +990,7 @@ int main() {
 		else
 			cout << kn - 1 << '\n';
 	}*/
-	
+
 	/*vs mes{ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
 	string m; cin >> m;
 	int nm, itm; cin >> nm;
@@ -963,5 +1000,27 @@ int main() {
 	itm %= 12;
 	cout << mes[itm] << '\n';*/
 
+//int t; cin >> t;
+//while (t--) {
+//	int n, k, p; cin >> n >> k >> p;
+//	if (n * p < abs(k)) {
+//		cout << -1 << '\n';
+//	}
+//	else if (abs(k)%p==0)
+//		cout << abs(k)/p << '\n';
+//	else {
+//		cout << abs(k) / p + 1 << '\n';
+//	}
+//}
 
+//int t; cin >> t;
+//while (t--) {
+//	int n; cin >> n;
+//	string s; cin >> s;
+//}
+
+	string s; cin >> s;
+	vector<int> a;
+	a = z_function(s);
+	for (int i : a) cout << i << ' ';
 }
